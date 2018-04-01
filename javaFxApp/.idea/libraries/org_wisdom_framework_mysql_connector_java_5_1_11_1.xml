@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="org.wisdom-framework:mysql-connector-java:5.1.11_1" type="repository">
+    <properties maven-id="org.wisdom-framework:mysql-connector-java:5.1.11_1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.11_1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.apache.felix.ipojo.annotations-1.11.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/abstract-jdbc-driver-0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

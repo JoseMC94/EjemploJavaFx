@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_javafxapp" default="compile.module.javafxapp">
+  <dirname property="module.javafxapp.basedir" file="${ant.file.module_javafxapp}"/>
+  
+  <property name="module.jdk.home.javafxapp" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.javafxapp" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.javafxapp" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.javafxapp" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="javafxapp.output.dir" value="${module.javafxapp.basedir}/out/production/javaFxApp"/>
+  <property name="javafxapp.testoutput.dir" value="${module.javafxapp.basedir}/out/test/javaFxApp"/>
+  
+  <path id="javafxapp.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="javafxapp.module.production.classpath">
+    <path refid="${module.jdk.classpath.javafxapp}"/>
+    <path refid="library.org.wisdom-framework:mysql-connector-java:5.1.11_1.classpath"/>
+  </path>
+  
+  <path id="javafxapp.runtime.production.module.classpath">
+    <pathelement location="${javafxapp.output.dir}"/>
+    <path refid="library.org.wisdom-framework:mysql-connector-java:5.1.11_1.classpath"/>
+  </path>
+  
+  <path id="javafxapp.module.classpath">
+    <path refid="${module.jdk.classpath.javafxapp}"/>
+    <pathelement location="${javafxapp.output.dir}"/>
+    <path refid="library.org.wisdom-framework:mysql-connector-java:5.1.11_1.classpath"/>
+  </path>
+  
+  <path id="javafxapp.runtime.module.classpath">
+    <pathelement location="${javafxapp.testoutput.dir}"/>
+    <pathelement location="${javafxapp.output.dir}"/>
+    <path refid="library.org.wisdom-framework:mysql-connector-java:5.1.11_1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.javafxapp">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.javafxapp">
+    <patternset refid="excluded.from.module.javafxapp"/>
+  </patternset>
+  
+  <path id="javafxapp.module.sourcepath">
+    <dirset dir="${module.javafxapp.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.javafxapp" depends="compile.module.javafxapp.production,compile.module.javafxapp.tests" description="Compile module javaFxApp"/>
+  
+  <target name="compile.module.javafxapp.production" depends="register.custom.compilers" description="Compile module javaFxApp; production classes">
+    <mkdir dir="${javafxapp.output.dir}"/>
+    <javac2 destdir="${javafxapp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.javafxapp}/javac">
+      <compilerarg line="${compiler.args.javafxapp}"/>
+      <bootclasspath refid="javafxapp.module.bootclasspath"/>
+      <classpath refid="javafxapp.module.production.classpath"/>
+      <src refid="javafxapp.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.javafxapp"/>
+    </javac2>
+    
+    <copy todir="${javafxapp.output.dir}">
+      <fileset dir="${module.javafxapp.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.javafxapp.tests" depends="register.custom.compilers,compile.module.javafxapp.production" description="compile module javaFxApp; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.javafxapp" description="cleanup module">
+    <delete dir="${javafxapp.output.dir}"/>
+    <delete dir="${javafxapp.testoutput.dir}"/>
+  </target>
+</project>
